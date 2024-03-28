@@ -8,7 +8,7 @@ type AddBtnProps = {
 function AddBtn(props: AddBtnProps) {
   return (
     <IonFab slot="fixed" horizontal='end' vertical='bottom' className='p-5'>
-      <IonFabButton onClick={props.handleAdd}>
+      <IonFabButton color="tertiary" onClick={props.handleAdd}>
         <IonIcon src={add}></IonIcon>
       </IonFabButton>
     </IonFab>
