@@ -130,30 +130,31 @@ function AddModal(props: AddModalProps) {
               />
             </IonRow>
             <IonRow className="items-center">
-              <IonCol>
+              <IonCol size="3">
                 <IonLabel>
                   Subject
                 </IonLabel>
               </IonCol>
-              <IonCol size="9">
-                <IonButton color="light" size="small" onClick={handleOpenSubjectsModal} className="ml-5">
+              <IonCol className="">
+                <IonButton color="light" size="small" onClick={handleOpenSubjectsModal}>
                   <IonLabel>{getValues("subject") || "Select a subject"}</IonLabel>
                 </IonButton>
               </IonCol>
             </IonRow>
             <IonRow className="items-center">
-              <IonCol>
+              <IonCol size="3">
                 <IonLabel>
                   Deadline
                 </IonLabel>
               </IonCol>
-              <IonCol size="9">
-                <IonDatetimeButton datetime="datetime" className="ml-[-40px]" />
-
+              <IonCol className="ml-[-70px]">
+                <IonDatetimeButton datetime="datetime"  />
                 <IonModal keepContentsMounted>
                   <IonDatetime
                     id="datetime"
                     value={getValues("deadline")}
+                    className="rounded-md"
+                    preferWheel
                     onIonChange={(e) => {
                       console.log("e.detail.value: ", e.detail.value)
                       setValue("deadline", e.detail.value!.toString())
@@ -171,12 +172,6 @@ function AddModal(props: AddModalProps) {
               Send {taskType === TaskType.TASK ? 'Task' : 'Assessment'}
             </IonButton>
           </IonGrid>
-
-          <IonModal keepContentsMounted>
-            <Controller name="deadline" control={control} render={({ field: { onChange, value } }) => (
-              <IonDatetime className="rounded-lg" id="datetime" value={value} onIonChange={(e) => onChange(e.target.value)} />
-            )} />
-          </IonModal>
 
           <IonModal
             keepContentsMounted
