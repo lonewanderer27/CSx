@@ -3,6 +3,7 @@ import firebaseApp from "../firebaseApp";
 import { IonCard, IonCardContent, IonList } from '@ionic/react';
 import Task from './Task';
 import { useDatabaseListData } from 'reactfire';
+import { TaskType } from '../enums';
 
 const db = getDatabase(firebaseApp);
 
@@ -32,25 +33,16 @@ export default function Tasks(props: {
   if (status === "success" && tasks && tasks.length > 0) {
     return (
       <IonList>
-        {/* {tasks.map((task: DataSnapshot, i) => {
-          const { deadlineDate, nameOfSubj, specTask, specAssessment, deadlineDateReal } = task.val();
-          return (
-            <Task
-              key={task.key!+i}
-              title={specTask ?? specAssessment}
-              subject={nameOfSubj}
-              deadline={deadlineDate}
-            />
-          )
-        })} */}
         {tasks.map((task, i) => {
           const { deadlineDate, nameOfSubj, specTask, specAssessment, deadlineDateReal } = task;
           return (
             <Task
+              id={task.id as string}
               key={task.id as string}
               title={specTask as string ?? specAssessment as string}
               subject={nameOfSubj as string}
               deadline={deadlineDate as string}
+              type={props.spec.includes('Task') ? TaskType.TASK : TaskType.ASSESSMENT}
             />
           )
         })}
