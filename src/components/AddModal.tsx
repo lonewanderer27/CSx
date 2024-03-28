@@ -195,7 +195,7 @@ function AddModal(props: AddModalProps) {
                 </IonSearchbar>
               </IonToolbar>
             </IonHeader>
-            <IonContent fullscreen className="ion-padding-horizontal">
+            <IonContent>
               <Controller name="subject" control={control} render={({ field: { onChange } }) => (
                 <IonList>
                   <IonRadioGroup value={getValues("subject")}>
