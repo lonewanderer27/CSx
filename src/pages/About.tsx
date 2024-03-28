@@ -10,7 +10,7 @@ function About() {
   return (
     <IonPage>
       <IonHeader>
-        <IonToolbar className='p-2'>
+        <IonToolbar>
           <IonButtons>
             <IonBackButton defaultHref='/' />
           </IonButtons>

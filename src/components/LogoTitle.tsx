@@ -9,7 +9,7 @@ type LogoTitleProps = {
 function LogoTitle(props: LogoTitleProps) {
   return (
     <IonHeader>
-      <IonToolbar className='p-2'>
+      <IonToolbar>
         <IonButtons slot="primary">
           <IonButton onClick={props.handleInfo}>
             <IonIcon size="large" src={informationCircle}></IonIcon>
