@@ -1,4 +1,4 @@
-import { IonButton, IonCard, IonCardContent, IonCardHeader, IonCardSubtitle, IonCardTitle } from '@ionic/react'
+import { IonAlert, IonButton, IonCard, IonCardContent, IonCardHeader, IonCardSubtitle, IonCardTitle } from '@ionic/react'
 import React from 'react'
 import { Subject, TaskType } from '../enums';
 import { getDatabase, ref, remove } from 'firebase/database';
@@ -29,9 +29,24 @@ function Task(props: TaskProps) {
         <p>Subject: {props.subject}</p>
         <p>Deadline: {props.deadline}</p>
       </IonCardContent>
-      <IonButton onClick={handleDelete}>
+      <IonButton id={"present-delete-alert"+props.id}>
         Delete
       </IonButton>
+      <IonAlert 
+        header={`Delete ${props.type === TaskType.TASK ? "Task" : "Assessment"}`} 
+        trigger={"present-delete-alert"+props.id}
+        buttons={[
+          {
+            text: "Cancel",
+            role: "cancel"
+          },
+          {
+            text: "Confirm",
+            handler: handleDelete
+          }
+        ]}>
+        
+      </IonAlert>
     </IonCard>
   )
 }

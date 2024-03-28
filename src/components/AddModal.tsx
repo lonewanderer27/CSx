@@ -190,7 +190,7 @@ function AddModal(props: AddModalProps) {
                 <IonSearchbar
                   slot="start"
                   name="searchText"
-                  showCancelButton="focus"
+                  showCancelButton="always"
                   showClearButton="focus"
                   className="mt-5"
                   value={searchText}

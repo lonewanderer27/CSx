@@ -32,7 +32,7 @@ export default function Tasks(props: {
 
   if (status === "success" && tasks && tasks.length > 0) {
     return (
-      <IonList>
+      <>
         {tasks.map((task, i) => {
           const { deadlineDate, nameOfSubj, specTask, specAssessment, deadlineDateReal } = task;
           return (
@@ -46,7 +46,7 @@ export default function Tasks(props: {
             />
           )
         })}
-      </IonList>
+      </>
     )
   }
 
