@@ -25,7 +25,7 @@ function Task(props: TaskProps) {
       <IonCardHeader>
         <span style={{ fontWeight: "bold", fontSize: 20 }}>{props.title}</span>
       </IonCardHeader>
-      <IonCardContent>
+      <IonCardContent style={{ marginBottom: "-20px" }}>
         <p>Subject: {props.subject}</p>
         <p>Deadline: {props.deadline}</p>
       </IonCardContent>

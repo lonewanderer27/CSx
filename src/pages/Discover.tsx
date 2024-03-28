@@ -37,11 +37,11 @@ function Discover() {
       <LogoTitle handleInfo={handleOpenInfo} />
       <IonContent className='ion-padding'>
         <IonList>
-          <IonListHeader>
+          <IonListHeader style={{ marginBottom: "-15px" }}>
             <IonLabel>Tasks</IonLabel>
           </IonListHeader>
           <Tasks title="tasks" firebaseKey='tasks' spec="specTasks" />
-          <IonListHeader>
+          <IonListHeader style={{ marginBottom: "-15px" }}>
             <IonLabel>Assessments</IonLabel>
           </IonListHeader>
           <Tasks title="assessments" firebaseKey='assessments' spec="specAssessments"  />
