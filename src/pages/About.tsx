@@ -1,4 +1,5 @@
-import { IonBackButton, IonButtons, IonContent, IonHeader, IonPage, IonTitle, IonToolbar } from '@ionic/react'
+import { IonBackButton, IonButton, IonButtons, IonContent, IonFooter, IonHeader, IonPage, IonTitle, IonToolbar } from '@ionic/react'
+import logo from "../assets/logo.png"
 
 function About() {
   return (
@@ -6,14 +7,23 @@ function About() {
       <IonHeader>
         <IonToolbar className='p-2'>
           <IonButtons>
-            <IonBackButton/>
+            <IonBackButton />
           </IonButtons>
-          <IonTitle>About CSx</IonTitle>
+          <IonTitle>About</IonTitle>
         </IonToolbar>
       </IonHeader>
       <IonContent className='ion-padding'>
-        <h1>Who developed this awesome app?</h1>
+        <div>
+          <img src={logo} alt="CSx Logo" className="mx-auto" />
+        </div>
       </IonContent>
+      <IonFooter>
+        <IonToolbar className="ion-padding">
+          <IonButton expand="block">
+            Install
+          </IonButton>
+        </IonToolbar>
+      </IonFooter>
     </IonPage>
   )
 }

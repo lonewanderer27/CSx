@@ -28,7 +28,7 @@ import { DatabaseProvider, FirebaseAppProvider, useFirebaseApp } from 'reactfire
 import { getDatabase } from 'firebase/database';
 
 setupIonicReact({
-  mode: 'ios'
+  mode: 'ios',
 });
 
 const App: React.FC = () => {

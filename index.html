@@ -2,7 +2,14 @@
 <html lang="en">
   <head>
     <meta charset="utf-8" />
-    <title>Ionic App</title>
+    <!-- VITE PWA BASIC CONFIGS -->
+    <title>CSx</title>
+    <meta name="description" content="CSx" />
+    <link rel="icon" href="/favicon.ico" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <link rel="mask-icon" href="/mask-icon.svg" color="#FFFFFF" />
+    <meta name="theme-color" content="#d3dffb" />
+    <!-- VITE PWA BASIC CONFIGS -->
     
     <base href="/" />
     
@@ -20,10 +27,11 @@
     
     <!-- add to homescreen for ios -->
     <meta name="apple-mobile-web-app-capable" content="yes" />
-    <meta name="apple-mobile-web-app-title" content="Ionic App" />
+    <meta name="apple-mobile-web-app-title" content="CSx" />
     <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   </head>
-  <body>
+  <!-- force our app to be in dark mode always -->
+  <body class="dark">
     <div id="root"></div>
     <script type="module" src="/src/main.tsx"></script>
   </body>

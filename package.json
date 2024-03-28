@@ -9,9 +9,11 @@
     "preview": "vite preview",
     "test.e2e": "cypress run",
     "test.unit": "vitest",
-    "lint": "eslint"
+    "lint": "eslint",
+    "generate-pwa-assets": "pwa-assets-generator"
   },
   "dependencies": {
+    "@capacitor/android": "^5.7.4",
     "@capacitor/app": "^5.0.7",
     "@capacitor/cli": "latest",
     "@capacitor/core": "latest",
@@ -39,6 +41,7 @@
     "@testing-library/user-event": "^14.4.3",
     "@types/react": "^18.0.27",
     "@types/react-dom": "^18.0.10",
+    "@vite-pwa/assets-generator": "^0.2.4",
     "@vitejs/plugin-legacy": "^5.0.0",
     "@vitejs/plugin-react": "^4.0.1",
     "autoprefixer": "^10.4.17",
@@ -51,6 +54,7 @@
     "terser": "^5.4.0",
     "typescript": "^5.1.6",
     "vite": "^5.0.0",
+    "vite-plugin-pwa": "^0.19.7",
     "vitest": "^0.34.6"
   },
   "description": "An Ionic project"
