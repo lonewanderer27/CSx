@@ -11,9 +11,9 @@ export enum Subject {
   NetworksCommLec = 'Networks and Communication Lec',
   OperatingSystemsLab = 'Operating Systems Lab',
   OperatingSystemsLec = 'Operating Systems Lec',
-  CurrentProgrammingApp = 'Current Programming Application',
-  CurrentProgrammingAppLab = 'Current Programming Application Lab',
-  GameDevelopment = 'Game Development',
+  CurrentProgrammingAppLec = 'CPA Lec',
+  CurrentProgrammingAppLab = 'CPA Lab',
+  GameDevelopmentLec = 'Game Development Lec',
   GameDevelopmentLab = 'Game Development Lab',
   SoftwareEngineering2 = 'Software Engineering 2'
 }
