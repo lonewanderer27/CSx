@@ -154,7 +154,9 @@ function AddModal(props: AddModalProps) {
                     id="datetime"
                     value={getValues("deadline")}
                     className="rounded-md"
-                    preferWheel
+                    hourCycle="h12"
+                    presentation="date-time"
+                    showDefaultButtons
                     onIonChange={(e) => {
                       console.log("e.detail.value: ", e.detail.value)
                       setValue("deadline", e.detail.value!.toString())
