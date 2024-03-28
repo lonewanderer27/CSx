@@ -23,14 +23,16 @@ function Task(props: TaskProps) {
   return (
     <IonCard color="primary">
       <IonCardHeader>
-        <span style={{ fontWeight: "bold", fontSize: 20 }}>{props.title}</span>
+        <span style={{ fontWeight: "bold", fontSize: 20, color: "#FFFFFF" }}>{props.title}</span>
       </IonCardHeader>
       <IonCardContent style={{ marginBottom: "-20px" }}>
         <p>Subject: {props.subject}</p>
         <p>Deadline: {props.deadline}</p>
       </IonCardContent>
-      <IonButton id={"present-delete-alert"+props.id}>
-        Delete
+      <IonButton color="light" id={"present-delete-alert"+props.id} size="small" className='pl-5 pb-5 pt-3'>
+        <span style={{ padding: "5px 10px" }}>
+          Delete
+        </span>
       </IonButton>
       <IonAlert 
         header={`Delete ${props.type === TaskType.TASK ? "Task" : "Assessment"}`} 

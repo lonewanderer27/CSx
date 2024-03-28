@@ -51,7 +51,7 @@ export default function Tasks(props: {
   }
 
   return (
-    <IonCard color="medium">
+    <IonCard style={{ backgroundColor: "#444444" }}>
       <IonCardContent>
         <p>No {props.title} available</p>
       </IonCardContent>
