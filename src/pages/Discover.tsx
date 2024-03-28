@@ -1,8 +1,13 @@
-import { IonContent, IonHeader, IonLabel, IonList, IonListHeader, IonPage, useIonRouter, useIonViewWillEnter } from '@ionic/react'
+import { IonContent, IonLabel, IonList, IonListHeader, IonPage, useIonRouter, useIonViewWillEnter } from '@ionic/react'
 import React, { useRef, useState } from 'react'
 import AddBtn from '../components/AddBtn'
 import AddModal from '../components/AddModal';
 import LogoTitle from '../components/LogoTitle';
+import { getDatabase } from 'firebase/database';
+import firebaseApp from "../firebaseApp";
+import Tasks from '../components/Tasks';
+
+const db = getDatabase(firebaseApp);
 
 function Discover() {
   const rt = useIonRouter();
@@ -35,9 +40,11 @@ function Discover() {
           <IonListHeader>
             <IonLabel>Tasks</IonLabel>
           </IonListHeader>
+          <Tasks title="tasks" firebaseKey='tasks' spec="specTasks" />
           <IonListHeader>
             <IonLabel>Assessments</IonLabel>
           </IonListHeader>
+          <Tasks title="assessments" firebaseKey='assessments' spec="specAssessments"  />
         </IonList>
         <AddBtn handleAdd={handleOpenAddModal} />
         <AddModal 
