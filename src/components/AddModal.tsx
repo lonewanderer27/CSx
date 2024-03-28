@@ -1,4 +1,4 @@
-import { IonButton, IonCheckbox, IonCol, IonContent, IonDatetime, IonDatetimeButton, IonGrid, IonHeader, IonInput, IonItem, IonLabel, IonList, IonModal, IonRadio, IonRadioGroup, IonRow, IonSearchbar, IonSegment, IonSegmentButton, IonSelect, IonToolbar, useIonViewWillEnter } from "@ionic/react"
+import { IonButton, IonCheckbox, IonCol, IonContent, IonDatetime, IonDatetimeButton, IonGrid, IonHeader, IonInput, IonItem, IonLabel, IonList, IonModal, IonRadio, IonRadioGroup, IonRow, IonSearchbar, IonSegment, IonSegmentButton, IonSelect, IonToolbar, useIonAlert, useIonViewWillEnter } from "@ionic/react"
 import { Subject, TaskType } from "../enums"
 import { Controller, SubmitErrorHandler, SubmitHandler, useForm } from "react-hook-form"
 import { Inputs } from "../types"
@@ -40,11 +40,23 @@ function AddModal(props: AddModalProps) {
   console.log("searchTexT: ", searchText)
 
   const [submitting, setSubmitting] = useState(false);
+  const [presentAlert] = useIonAlert();
   const onSubmit: SubmitHandler<Inputs> = (data) => {
-    setSubmitting(true);
-
     console.log("Data: ", data);
     const { deadline, title, subject } = data;
+
+    // check if data is complete
+    if (!title) {
+      presentAlert("Title is required", [{ text: "Ok" }]);
+      return;
+    }
+
+    if (!subject) {
+      presentAlert("Please select a subject", [{ text: "Ok" }]);
+      return;
+    }
+
+    setSubmitting(true);
 
     // get formatted data
     const deadlineDateReal = deadline ?? new Date().toISOString();
