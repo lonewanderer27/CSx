@@ -96,10 +96,10 @@ function AddModal(props: AddModalProps) {
   }
 
   return (
-    <IonModal isOpen={props.isOpen} onDidDismiss={props.handleDismiss} presentingElement={props.presentingElement} keepContentsMounted>
+    <IonModal isOpen={props.isOpen} onDidDismiss={props.handleDismiss} breakpoints={[0, 0.82]} initialBreakpoint={0.82} keepContentsMounted>
       <IonHeader>
         <IonToolbar>
-          <IonSegment value={taskType}>
+          <IonSegment value={taskType} className="mt-3">
             <IonSegmentButton value={TaskType.TASK} onClick={() => setTaskType(TaskType.TASK)}>
               <IonLabel>Task</IonLabel>
             </IonSegmentButton>
