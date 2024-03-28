@@ -1,4 +1,4 @@
-import { IonButton, IonCheckbox, IonCol, IonContent, IonDatetime, IonDatetimeButton, IonGrid, IonHeader, IonInput, IonItem, IonLabel, IonList, IonModal, IonRadio, IonRadioGroup, IonRow, IonSearchbar, IonSegment, IonSegmentButton, IonSelect, IonToolbar, useIonAlert, useIonViewWillEnter } from "@ionic/react"
+import { IonButton, IonButtons, IonCheckbox, IonCol, IonContent, IonDatetime, IonDatetimeButton, IonGrid, IonHeader, IonInput, IonItem, IonLabel, IonList, IonModal, IonRadio, IonRadioGroup, IonRow, IonSearchbar, IonSegment, IonSegmentButton, IonSelect, IonToolbar, useIonAlert, useIonViewWillEnter } from "@ionic/react"
 import { Subject, TaskType } from "../enums"
 import { Controller, SubmitErrorHandler, SubmitHandler, useForm } from "react-hook-form"
 import { Inputs } from "../types"
@@ -138,7 +138,7 @@ function AddModal(props: AddModalProps) {
                 </IonLabel>
               </IonCol>
               <IonCol size="9">
-                <IonButton size="small" onClick={handleOpenSubjectsModal} className="ml-5">
+                <IonButton color="light" size="small" onClick={handleOpenSubjectsModal} className="ml-5">
                   <IonLabel>{getValues("subject") || "Select a subject"}</IonLabel>
                 </IonButton>
               </IonCol>
@@ -188,9 +188,13 @@ function AddModal(props: AddModalProps) {
             <IonHeader>
               <IonToolbar>
                 <IonSearchbar
+                  slot="start"
                   name="searchText"
+                  showCancelButton="focus"
+                  showClearButton="focus"
                   className="mt-5"
                   value={searchText}
+                  onIonCancel={handleCloseSubjectsModal}
                   onIonInput={(e) => setSearchText(e.target.value ?? "")}>
                 </IonSearchbar>
               </IonToolbar>
