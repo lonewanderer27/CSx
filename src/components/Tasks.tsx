@@ -1,4 +1,4 @@
-import { getDatabase, query, ref } from 'firebase/database';
+import { getDatabase, orderByChild, query, ref } from 'firebase/database';
 import firebaseApp from "../firebaseApp";
 import { IonCard, IonCardContent, IonList } from '@ionic/react';
 import Task from './Task';
@@ -14,7 +14,7 @@ export default function Tasks(props: {
 }) {
   // const [tasks, loading, error] = useList(ref(db, props.firebaseKey));
   const tasksRef = ref(db, props.firebaseKey);
-  const tasksQuery = query(tasksRef);
+  const tasksQuery = query(tasksRef, orderByChild('deadlineDateReal'));
 
   const { status, data: tasks } = useDatabaseListData(tasksQuery, {
     idField: 'id'

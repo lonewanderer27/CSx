@@ -37,8 +37,6 @@ function AddModal(props: AddModalProps) {
 
   const [searchText, setSearchText] = useState("");
 
-  console.log("searchTexT: ", searchText)
-
   const [submitting, setSubmitting] = useState(false);
   const [presentAlert] = useIonAlert();
   const onSubmit: SubmitHandler<Inputs> = (data) => {
