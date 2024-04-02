@@ -1,4 +1,4 @@
-package io.ionic.starter;
+package com.lonewanderer27.csx;
 
 import com.getcapacitor.BridgeActivity;
 

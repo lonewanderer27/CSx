@@ -1,7 +1,7 @@
 import { CapacitorConfig } from '@capacitor/cli';
 
 const config: CapacitorConfig = {
-  appId: 'io.ionic.starter',
+  appId: 'com.lonewanderer27.csx',
   appName: 'CSx',
   webDir: 'dist',
   server: {

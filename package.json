@@ -13,7 +13,7 @@
     "generate-pwa-assets": "pwa-assets-generator"
   },
   "dependencies": {
-    "@capacitor/android": "^5.7.4",
+    "@capacitor/android": "5.7.0",
     "@capacitor/app": "^5.0.7",
     "@capacitor/cli": "latest",
     "@capacitor/core": "latest",
