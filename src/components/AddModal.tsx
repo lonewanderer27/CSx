@@ -79,17 +79,17 @@ function AddModal(props: AddModalProps) {
     const listRef = ref(db, taskType === TaskType.TASK ? 'tasks/' : 'assessments/');
     const newTaskRef = push(listRef);
     set(newTaskRef, newData)
-    .then(() => {
-      setSubmitting(false);
+      .then(() => {
+        setSubmitting(false);
 
-      // reset form
-      reset();
+        // reset form
+        reset();
 
-      // hide this modal
-      props.handleDismiss();
-    }).catch((error: any) => {
-      console.error("Error adding document: ", error);
-    });
+        // hide this modal
+        props.handleDismiss();
+      }).catch((error: any) => {
+        console.error("Error adding document: ", error);
+      });
   }
   const onError: SubmitErrorHandler<Inputs> = (errors) => {
     console.log("Errors: ", errors);
@@ -113,42 +113,43 @@ function AddModal(props: AddModalProps) {
 
         <form className="ion-padding" onSubmit={handleSubmit(onSubmit, onError)}>
           <IonGrid>
-            <IonRow className="items-center px-1">
+            <IonRow className="items-center py-1">
               <Controller
                 name="title"
                 control={control}
                 render={({ field: { onChange, value } }) => (
-                  <IonInput
-                    labelPlacement="fixed"
-                    label="Title"
-                    onIonChange={(e) => onChange(e.detail.value!)}
-                    value={value}
-                    placeholder={taskType === TaskType.TASK ? "Enter task title" : "Enter assessment title"}
-                    required
-                  />
+                  <>
+                    <IonLabel className="font-bold">
+                      {taskType === TaskType.TASK ? "Task Title" : "Assessment Title"}
+                    </IonLabel>
+                    <IonInput
+                      fill="outline"
+                      onIonChange={(e) => onChange(e.detail.value!)}
+                      value={value}
+                      placeholder={taskType === TaskType.TASK ? "Enter task title" : "Enter assessment title"}
+                      required
+                    />
+                  </>
                 )}
               />
             </IonRow>
-            <IonRow className="items-center">
-              <IonCol size="3">
-                <IonLabel>
-                  Subject
-                </IonLabel>
-              </IonCol>
-              <IonCol className="">
-                <IonButton color="light" size="small" onClick={handleOpenSubjectsModal}>
-                  <IonLabel>{getValues("subject") || "Select a subject"}</IonLabel>
-                </IonButton>
-              </IonCol>
+            <IonRow className="items-center py-1">
+              <IonLabel className="font-bold">
+                Subject
+              </IonLabel>
+              <IonInput
+                fill="outline"
+                onClick={handleOpenSubjectsModal}
+                placeholder="Select a subject"
+                value={getValues("subject")}
+              />
             </IonRow>
-            <IonRow className="items-center">
-              <IonCol size="3">
-                <IonLabel>
-                  Deadline
-                </IonLabel>
-              </IonCol>
-              <IonCol className="ml-[-70px]">
-                <IonDatetimeButton datetime="datetime"  />
+            <IonRow className="py-1">
+              <IonLabel className="font-bold">
+                Deadline
+              </IonLabel>
+              <IonCol size="12" className="justify-start">
+                <IonDatetimeButton datetime="datetime" />
                 <IonModal keepContentsMounted>
                   <IonDatetime
                     id="datetime"
@@ -221,7 +222,7 @@ function AddModal(props: AddModalProps) {
 
         </form>
       </IonHeader>
-    </IonModal>
+    </IonModal >
   )
 }
 
