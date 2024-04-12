@@ -1,4 +1,4 @@
-export enum TaskType {
+export enum DocType {
   ASSESSMENT = 'ASSESSMENT',
   TASK = 'TASK'
 }

@@ -1,29 +1,18 @@
 import { IonButton, IonButtons, IonCheckbox, IonCol, IonContent, IonDatetime, IonDatetimeButton, IonGrid, IonHeader, IonInput, IonItem, IonLabel, IonList, IonModal, IonRadio, IonRadioGroup, IonRow, IonSearchbar, IonSegment, IonSegmentButton, IonSelect, IonToolbar, useIonAlert, useIonViewWillEnter } from "@ionic/react"
-import { Subject, TaskType } from "../enums"
+import { Subject, DocType } from "../enums"
 import { Controller, SubmitErrorHandler, SubmitHandler, useForm } from "react-hook-form"
-import { Inputs } from "../types"
+import { Inputs, TaskModalProps } from "../types"
 import { useRef, useState } from "react"
 import { push, ref, set } from "firebase/database"
 import { getDatabase } from "firebase/database"
 import firebaseApp from "../firebaseApp"
 
-type AddModalProps = {
-  isOpen: boolean
-  handleDismiss: () => void
-  presentingElement?: HTMLElement | undefined
-}
-
 const db = getDatabase(firebaseApp);
 
-function AddModal(props: AddModalProps) {
+function AddTaskModal(props: TaskModalProps) {
   const page = useRef<HTMLElement>();
-  const [presentingElement, setPresentingElement] = useState<HTMLElement | undefined>(undefined);
   const [isSubjectsModalOpen, setIsSubjectsModalOpen] = useState(false);
-
-  useIonViewWillEnter(() => {
-    setPresentingElement(page.current);
-  }, []);
-
+  
   const handleOpenSubjectsModal = () => {
     setIsSubjectsModalOpen(true);
   }
@@ -32,27 +21,35 @@ function AddModal(props: AddModalProps) {
     setIsSubjectsModalOpen(false);
   }
 
-  const [taskType, setTaskType] = useState<TaskType>(TaskType.TASK)
+  const [taskType, setTaskType] = useState<DocType>(DocType.TASK)
   const { getValues, control, handleSubmit, reset, setValue } = useForm<Inputs>();
 
   const [searchText, setSearchText] = useState("");
 
   const [submitting, setSubmitting] = useState(false);
   const [presentAlert] = useIonAlert();
-  const onSubmit: SubmitHandler<Inputs> = (data) => {
+
+  const verifyInputs = (data: Inputs) => {
     console.log("Data: ", data);
     const { deadline, title, subject } = data;
 
     // check if data is complete
     if (!title) {
       presentAlert("Title is required", [{ text: "Ok" }]);
-      return;
+      return false;
     }
 
     if (!subject) {
       presentAlert("Please select a subject", [{ text: "Ok" }]);
-      return;
+      return false;
     }
+
+    return true;
+  }
+
+  const onAddSubmit: SubmitHandler<Inputs> = (data) => {
+    if (!verifyInputs(data)) return;
+    const { deadline, title, subject } = data;
 
     setSubmitting(true);
 
@@ -69,14 +66,14 @@ function AddModal(props: AddModalProps) {
     }
 
     // Determine specTask or specAssessment based on taskType
-    if (taskType === TaskType.TASK) {
+    if (taskType === DocType.TASK) {
       newData.specTask = title;
     } else {
       newData.specAssessment = title;
     }
 
     // save to database
-    const listRef = ref(db, taskType === TaskType.TASK ? 'tasks/' : 'assessments/');
+    const listRef = ref(db, taskType === DocType.TASK ? 'tasks/' : 'assessments/');
     const newTaskRef = push(listRef);
     set(newTaskRef, newData)
       .then(() => {
@@ -91,19 +88,26 @@ function AddModal(props: AddModalProps) {
         console.error("Error adding document: ", error);
       });
   }
+
   const onError: SubmitErrorHandler<Inputs> = (errors) => {
     console.log("Errors: ", errors);
   }
 
   return (
-    <IonModal isOpen={props.isOpen} onDidDismiss={props.handleDismiss} breakpoints={[0, 0.82]} initialBreakpoint={0.82} keepContentsMounted>
+    <IonModal
+      isOpen={props.isOpen}
+      onDidDismiss={props.handleDismiss}
+      breakpoints={[0, 0.82]}
+      initialBreakpoint={0.82}
+      keepContentsMounted
+    >
       <IonHeader>
         <IonToolbar>
           <IonSegment value={taskType} className="mt-2">
-            <IonSegmentButton value={TaskType.TASK} onClick={() => setTaskType(TaskType.TASK)}>
+            <IonSegmentButton value={DocType.TASK} onClick={() => setTaskType(DocType.TASK)}>
               <IonLabel>Task</IonLabel>
             </IonSegmentButton>
-            <IonSegmentButton value={TaskType.ASSESSMENT} onClick={() => setTaskType(TaskType.ASSESSMENT)}>
+            <IonSegmentButton value={DocType.ASSESSMENT} onClick={() => setTaskType(DocType.ASSESSMENT)}>
               <IonLabel>
                 Assessment
               </IonLabel>
@@ -111,7 +115,7 @@ function AddModal(props: AddModalProps) {
           </IonSegment>
         </IonToolbar>
 
-        <form className="ion-padding" onSubmit={handleSubmit(onSubmit, onError)}>
+        <form className="ion-padding" onSubmit={handleSubmit(onAddSubmit, onError)}>
           <IonGrid>
             <IonRow className="items-center py-1">
               <Controller
@@ -120,13 +124,13 @@ function AddModal(props: AddModalProps) {
                 render={({ field: { onChange, value } }) => (
                   <>
                     <IonLabel className="font-bold">
-                      {taskType === TaskType.TASK ? "Task Title" : "Assessment Title"}
+                      {taskType === DocType.TASK ? "Task Title" : "Assessment Title"}
                     </IonLabel>
                     <IonInput
                       fill="outline"
                       onIonChange={(e) => onChange(e.detail.value!)}
                       value={value}
-                      placeholder={taskType === TaskType.TASK ? "Enter task title" : "Enter assessment title"}
+                      placeholder={taskType === DocType.TASK ? "Enter task title" : "Enter assessment title"}
                       required
                     />
                   </>
@@ -159,6 +163,7 @@ function AddModal(props: AddModalProps) {
                     presentation="date-time"
                     showDefaultButtons
                     onIonChange={(e) => {
+                      console.log("AddTaskModal")
                       console.log("e.detail.value: ", e.detail.value)
                       setValue("deadline", e.detail.value!.toString())
                     }}
@@ -172,7 +177,7 @@ function AddModal(props: AddModalProps) {
               className="pt-2"
               type="submit"
             >
-              Send {taskType === TaskType.TASK ? 'Task' : 'Assessment'}
+              Send {taskType === DocType.TASK ? 'Task' : 'Assessment'}
             </IonButton>
           </IonGrid>
 
@@ -219,11 +224,10 @@ function AddModal(props: AddModalProps) {
               )} />
             </IonContent>
           </IonModal>
-
         </form>
       </IonHeader>
     </IonModal >
   )
 }
 
-export default AddModal
+export default AddTaskModal

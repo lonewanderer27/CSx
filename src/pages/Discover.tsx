@@ -1,24 +1,20 @@
 import { IonContent, IonLabel, IonList, IonListHeader, IonPage, useIonRouter, useIonViewWillEnter } from '@ionic/react'
-import React, { useRef, useState } from 'react'
+import { useRef, useState } from 'react'
 import AddBtn from '../components/AddBtn'
-import AddModal from '../components/AddModal';
+import AddTaskModal from '../components/AddTaskModal';
 import LogoTitle from '../components/LogoTitle';
-import { getDatabase } from 'firebase/database';
-import firebaseApp from "../firebaseApp";
 import Tasks from '../components/Tasks';
-
-const db = getDatabase(firebaseApp);
+import OptionsBtn from '../components/OptionsBtn';
+import UpdateTaskModal from '../components/UpdateTaskModal';
+import { useAtom } from 'jotai';
+import { isUpdateModalOpenAtom } from '../atoms';
 
 function Discover() {
   const rt = useIonRouter();
 
   const [isAddModalOpen, setIsAddModalOpen] = useState(false);
+  const [isUpdateModalOpen, toggle] = useAtom(isUpdateModalOpenAtom);
   const page = useRef<HTMLElement>();
-  const [presentingElement, setPresentingElement] = useState<HTMLElement | undefined>(undefined);
-
-  useIonViewWillEnter(() => {
-    setPresentingElement(page.current);
-  }, []);
 
   const handleOpenAddModal = () => {
     setIsAddModalOpen(true);
@@ -37,21 +33,30 @@ function Discover() {
       <LogoTitle handleInfo={handleOpenInfo} />
       <IonContent className='ion-padding'>
         <IonList>
+
           <IonListHeader style={{ marginBottom: "-15px" }}>
             <IonLabel>Tasks</IonLabel>
+            <OptionsBtn />
           </IonListHeader>
           <Tasks title="tasks" firebaseKey='tasks' spec="specTasks" />
+
           <IonListHeader style={{ marginBottom: "-15px" }}>
             <IonLabel>Assessments</IonLabel>
+            <OptionsBtn />
           </IonListHeader>
-          <Tasks title="assessments" firebaseKey='assessments' spec="specAssessments"  />
+          <Tasks title="assessments" firebaseKey='assessments' spec="specAssessments" />
+          
         </IonList>
         <AddBtn handleAdd={handleOpenAddModal} />
-        <AddModal 
-          isOpen={isAddModalOpen} 
-          handleDismiss={handleCloseAddModal} 
-          presentingElement={presentingElement}
+        <AddTaskModal
+          isOpen={isAddModalOpen}
+          handleDismiss={handleCloseAddModal}
         />
+        {isUpdateModalOpen && 
+          <UpdateTaskModal
+          isOpen={isUpdateModalOpen}
+          handleDismiss={() => toggle(false)}
+        />}
       </IonContent>
     </IonPage>
   )
